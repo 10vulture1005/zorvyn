@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String            @id @default(uuid())
+  email     String            @unique
+  password  String
+  role      String            @default("Viewer") // Viewer, Analyst, Admin
+  status    String            @default("active") // active, inactive
+  records   FinancialRecord[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model FinancialRecord {
+  id        String    @id @default(uuid())
+  amount    Float
+  type      String // income, expense
+  category  String
+  date      DateTime
+  notes     String?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  userId      String?
+  action      String // create, update, delete, restore, purge
+  entityType  String // FinancialRecord, User
+  entityId    String
+  beforeState String? // JSON string
+  afterState  String? // JSON string
+  timestamp   DateTime @default(now())
+}
