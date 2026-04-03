@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const record_controller_1 = require("../controllers/record.controller");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const role_middleware_1 = require("../middlewares/role.middleware");
+const validate_middleware_1 = require("../middlewares/validate.middleware");
+const record_validate_1 = require("../validators/record.validate");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticate);
+router.post('/', (0, role_middleware_1.requireRoles)(['Admin']), (0, validate_middleware_1.validate)(record_validate_1.createRecordSchema), record_controller_1.createRecord);
+router.get('/', (0, role_middleware_1.requireRoles)(['Analyst', 'Admin']), (0, validate_middleware_1.validate)(record_validate_1.listRecordsSchema), record_controller_1.listRecords);
+router.get('/:id', (0, role_middleware_1.requireRoles)(['Analyst', 'Admin']), record_controller_1.getRecord);
+router.put('/:id', (0, role_middleware_1.requireRoles)(['Admin']), (0, validate_middleware_1.validate)(record_validate_1.updateRecordSchema), record_controller_1.updateRecord);
+router.delete('/:id', (0, role_middleware_1.requireRoles)(['Admin']), record_controller_1.softDeleteRecord);
+router.post('/:id/restore', (0, role_middleware_1.requireRoles)(['Admin']), record_controller_1.restoreRecord);
+router.delete('/:id/purge', (0, role_middleware_1.requireRoles)(['Admin']), record_controller_1.purgeRecord);
+exports.default = router;
