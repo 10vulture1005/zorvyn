@@ -13,13 +13,13 @@ export const comparePassword = async (password: string, hash: string): Promise<b
 };
 
 export const generateTokens = (userId: string, role: string) => {
-  const accessToken = jwt.sign({ userId, role }, config.jwtSecret, {
-    expiresIn: config.jwtExpiresIn,
-  });
+  const accessToken = jwt.sign({ userId, role }, config.jwtSecret as jwt.Secret, {
+    expiresIn: config.jwtExpiresIn as any,
+  } as jwt.SignOptions);
 
-  const refreshToken = jwt.sign({ userId, role }, config.refreshSecret, {
-    expiresIn: config.refreshExpiresIn,
-  });
+  const refreshToken = jwt.sign({ userId, role }, config.refreshSecret as jwt.Secret, {
+    expiresIn: config.refreshExpiresIn as any,
+  } as jwt.SignOptions);
 
   return { accessToken, refreshToken };
 };
