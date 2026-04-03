@@ -53,14 +53,14 @@ export default function Dashboard() {
           <h2 className="text-2xl font-black uppercase mb-2">Total Income</h2>
           <p className="text-5xl font-black">${summary.totalIncome.toFixed(2)}</p>
         </div>
-        <div className="brutal-box p-6 bg-brutal-red text-brutal-white">
-          <h2 className="text-2xl font-black uppercase mb-2">Total Expenses</h2>
+        {/* <div className="brutal-box p-6 bg-brutal-red text-brutal-white"> */}
+          {/* <h2 className="text-2xl font-black uppercase mb-2">Total Expenses</h2>
           <p className="text-5xl font-black">${summary.totalExpenses.toFixed(2)}</p>
         </div>
         <div className={`brutal-box p-6 ${summary.netBalance >= 0 ? "bg-brutal-blue text-brutal-white" : "bg-brutal-black text-brutal-white"}`}>
           <h2 className="text-2xl font-black uppercase mb-2">Net Balance</h2>
           <p className="text-5xl font-black">${summary.netBalance.toFixed(2)}</p>
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

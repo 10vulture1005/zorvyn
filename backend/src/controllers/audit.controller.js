@@ -16,7 +16,11 @@ const queryAuditLogs = async (req, res) => {
             take: Number(limit),
             orderBy: { timestamp: 'desc' }
         });
-        res.json(logs);
+        res.json(logs.map(l => ({
+            ...l,
+            before: l.beforeState,
+            after: l.afterState,
+        })));
     }
     catch (error) {
         res.status(500).json({ message: 'Internal Server Error' });

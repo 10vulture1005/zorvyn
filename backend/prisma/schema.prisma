@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -38,7 +38,7 @@ model AuditLog {
   action      String // create, update, delete, restore, purge
   entityType  String // FinancialRecord, User
   entityId    String
-  beforeState String? // JSON string
-  afterState  String? // JSON string
+  beforeState Json?
+  afterState  Json?
   timestamp   DateTime @default(now())
 }

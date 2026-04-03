@@ -10,8 +10,8 @@ const logAudit = async (userId, action, entityType, entityId, beforeState, after
             action,
             entityType,
             entityId,
-            beforeState: beforeState ? JSON.stringify(beforeState) : null,
-            afterState: afterState ? JSON.stringify(afterState) : null
+            beforeState: beforeState ?? null,
+            afterState: afterState ?? null
         }
     });
 };
