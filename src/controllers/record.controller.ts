@@ -26,7 +26,7 @@ export const createRecord = async (req: AuthRequest, res: Response) => {
 
 export const getRecord = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const record = await prisma.financialRecord.findUnique({ where: { id } });
 
     if (!record || record.deletedAt) {
@@ -85,7 +85,7 @@ export const listRecords = async (req: AuthRequest, res: Response) => {
 
 export const updateRecord = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const data = req.body;
     const userId = req.user!.userId;
 
@@ -108,7 +108,7 @@ export const updateRecord = async (req: AuthRequest, res: Response) => {
 
 export const softDeleteRecord = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const userId = req.user!.userId;
 
     const existing = await prisma.financialRecord.findUnique({ where: { id } });
@@ -130,7 +130,7 @@ export const softDeleteRecord = async (req: AuthRequest, res: Response) => {
 
 export const restoreRecord = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const userId = req.user!.userId;
 
     const existing = await prisma.financialRecord.findUnique({ where: { id } });
@@ -152,7 +152,7 @@ export const restoreRecord = async (req: AuthRequest, res: Response) => {
 
 export const purgeRecord = async (req: AuthRequest, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const userId = req.user!.userId;
 
     const existing = await prisma.financialRecord.findUnique({ where: { id } });
